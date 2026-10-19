@@ -80,7 +80,6 @@ def listar_viajes(request):
     })
 
 
-
 def listar_pagos(request):
     pagos = Pago.objects.select_related(
         "id_viaje",
