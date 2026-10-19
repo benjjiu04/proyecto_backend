@@ -1,6 +1,7 @@
 from django.db import models
 
 class Usuario(models.Model):
+    
     id_usuario = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(unique=True)
@@ -8,18 +9,19 @@ class Usuario(models.Model):
     rol = models.CharField(max_length=20) # Administrador, Operador, Conductor
     activo = models.BooleanField(default=True)
 
-class Meta:
-    db_table = 'Usuarios' # Para que use el nombre exacto de tu tabla en Azure
+    class Meta:
+        db_table = 'Usuarios' # Para que use el nombre exacto de tu tabla en Azure
 
 class Cliente(models.Model):
+    
     id_cliente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     telefono = models.CharField(max_length=20, blank=True)
     direccion = models.CharField(max_length=200, blank=True)
     frecuencia = models.CharField(max_length=50, blank=True)
 
-class Meta:
-    db_table = 'Clientes'
+    class Meta:
+      db_table = 'Clientes'
 
 class Conductor(models.Model):
     id_conductor = models.AutoField(primary_key=True)
@@ -29,8 +31,8 @@ class Conductor(models.Model):
     tipo = models.CharField(max_length=20, blank=True) # Fijo o Externo
     activo = models.BooleanField(default=True)
 
-class Meta:
-    db_table = 'Conductores'
+    class Meta:
+      db_table = 'Conductores'
 
 class Vehiculo(models.Model):
     id_vehiculo = models.AutoField(primary_key=True)
@@ -40,10 +42,11 @@ class Vehiculo(models.Model):
     km_actual = models.IntegerField(default=0)
     estado = models.CharField(max_length=20, default='Activo')
 
-class Meta:
-    db_table = 'Vehiculos'
+    class Meta:
+      db_table = 'Vehiculos'
 
 class Viaje(models.Model):
+    
     id_viaje = models.AutoField(primary_key=True)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, db_column='id_cliente')
     id_conductor = models.ForeignKey(Conductor, on_delete=models.CASCADE, db_column='id_conductor')
@@ -56,10 +59,11 @@ class Viaje(models.Model):
     costo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     estado = models.CharField(max_length=20, default='Programado')
 
-class Meta:
-    db_table = 'Viajes'
+    class Meta:
+      db_table = 'Viajes'
 
 class Pago(models.Model):
+    
     id_pago = models.AutoField(primary_key=True)
     id_viaje = models.ForeignKey(Viaje, on_delete=models.CASCADE, db_column='id_viaje')
     monto = models.DecimalField(max_digits=10, decimal_places=2)
@@ -67,10 +71,11 @@ class Pago(models.Model):
     metodo = models.CharField(max_length=30, blank=True)
     estado = models.CharField(max_length=20, default='Pendiente')
 
-class Meta:
-    db_table = 'Pagos'
+    class Meta:
+      db_table = 'Pagos'
 
 class Mantencion(models.Model):
+    
     id_mantencion = models.AutoField(primary_key=True)
     id_vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE, db_column='id_vehiculo')
     fecha = models.DateField()
@@ -78,5 +83,5 @@ class Mantencion(models.Model):
     piezas_cambiadas = models.TextField(blank=True)
     observaciones = models.TextField(blank=True)
 
-class Meta:
-    db_table = 'Mantenciones'
+    class Meta:
+      db_table = 'Mantenciones'
