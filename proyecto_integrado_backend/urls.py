@@ -16,7 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app_limarGO.views import (inicio, listar_clientes, listar_conductores,
+                              listar_vehiculos, listar_mantenciones, listar_pagos,
+                              listar_usuarios, listar_viajes)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", inicio, name="inicio"),
+    path("listar_clientes", listar_clientes, name="listar_clientes"),
+    path("listar_viajes", listar_viajes, name="listar_viajes"),
+    path("listar_usuarios", listar_usuarios, name="listar_usuarios"),
+    path("listar_vehiculos", listar_vehiculos, name="listar_vehiculos"),
+    path("listar_pagos", listar_pagos, name="listar_pagos"),
+    path("listar_mantenciones", listar_mantenciones, name="listar_mantenciones")
+
+
 ]

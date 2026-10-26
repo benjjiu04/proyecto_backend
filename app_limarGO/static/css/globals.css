@@ -147,3 +147,12 @@
 				a:hover {
 						text-decoration: underline;
 				}
+
+				.mensaje-no-registro{
+					
+					text-align: center;
+					padding: 20px;
+					font-style: Arial;
+					font-weight: 800;
+					color: black;
+				}

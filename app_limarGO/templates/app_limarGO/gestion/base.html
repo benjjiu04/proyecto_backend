@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Sistema LimarGO</title>
     <link rel="stylesheet" href="{% static 'css/globals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viajes.css' %}">
 
 </head>
 <body>
@@ -16,7 +17,7 @@
         <a href="{% url 'listar_vehiculos' %}" class="nav-tab {% if 'vehiculo' in request.resolver_match.url_name %}active{% endif %}">Vehiculos</a>
         <a href="{% url 'listar_viajes' %}" class="nav-tab {% if 'viaje' in request.resolver_match.url_name %}active{% endif %}"> Viajes </a>
         <a href="{% url 'listar_pagos' %}" class="nav-tab {% if 'pago' in request.resolver_match.url_name %}active{% endif %}"> Pagos </a>
-        <a href="{% url 'listar_mantenciones' %}" class="nav-tab {% if 'mantencion' in request.resolver_match.url_name %}active{% endif %}"> Mantenimientos </a>
+        <a href="{% url 'listar_mantenciones' %}" class="nav-tab {% if 'mantencion' in request.resolver_match.url_name %}active{% endif %}"> Mantenciones </a>
     </div>
 
     <div class="content-container">

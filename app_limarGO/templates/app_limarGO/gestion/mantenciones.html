@@ -8,7 +8,7 @@
 
 <div class="action-bar">
     <div class="search-box">
-        <input type="text" placeholder="Buscar viaje por destino...">
+        <input type="text" placeholder="Buscar mantencion por ID de vehiculo...">
         <button class="btn btn-go">Go</button>
     </div>
     <div>
@@ -27,19 +27,19 @@
         </tr>
     </thead>
     <tbody>
-        {% for manten in mantencion %}
+        {% for mantencion in mantenciones %}
         <tr>
-            <td><a href="#">{{manten.id_mantencion}}</a></td>
-            <td> {{ manten.id_vehiculo }} </td>
-            <td> {{ manten.fecha }} </td>
-            <td> {{ manten.km_mantencion}} </td>
-            <td> {{manten.piezas_cambiadas}} </td>
-            <td> {{manten.observaciones}}</td>
+            <td><a href="#">{{mantencion.id_mantencion}}</a></td>
+            <td> {{ mantencion.id_vehiculo }} </td>
+            <td> {{ mantencion.fecha }} </td>
+            <td> {{ mantencion.km_mantencion}} </td>
+            <td> {{mantencion.piezas_cambiadas}} </td>
+            <td> {{mantencion.observaciones}}</td>
  
         </tr>
         {% empty %}
         <tr>
-            <td colspan="7" style="text-align: center; color: #64748b; padding: 20px;">No hay viajes registrados.</td>
+            <td class="mensaje-no-registro" colspan="7">No hay mantenciones registradas.</td>
         </tr>
         {% endfor %}
     </tbody>

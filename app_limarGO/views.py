@@ -30,7 +30,7 @@ def inicio(request):
         "total_mantenciones": Mantencion.objects.count(),
     }
 
-    return render(request, "gestion/inicio.html", contexto)
+    return render(request, "gestion/index.html", contexto)
 
 
 
