@@ -1,0 +1,47 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<div class="sub-tabs">
+    <a href="{% url 'inicio' %}" class="sub-tab">Home</a>
+    <span class="sub-tab active"> Mantenciones </span>
+</div>
+
+<div class="action-bar">
+    <div class="search-box">
+        <input type="text" placeholder="Buscar viaje por destino...">
+        <button class="btn btn-go">Go</button>
+    </div>
+    <div>
+        <a href="#" class="btn btn-primary">Registrar mantencion &gt;</a>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID Vehiculo</th>
+            <th>Fecha</th>
+            <th>KM Mantencion</th>
+            <th>Piezas Cambiadas</th>
+            <th>Observaciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for manten in mantencion %}
+        <tr>
+            <td><a href="#">{{manten.id_mantencion}}</a></td>
+            <td> {{ manten.id_vehiculo }} </td>
+            <td> {{ manten.fecha }} </td>
+            <td> {{ manten.km_mantencion}} </td>
+            <td> {{manten.piezas_cambiadas}} </td>
+            <td> {{manten.observaciones}}</td>
+ 
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" style="text-align: center; color: #64748b; padding: 20px;">No hay viajes registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
