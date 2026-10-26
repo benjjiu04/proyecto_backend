@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema LimarGO</title>
+    <link rel="stylesheet" href="{% static 'css/globals.css' %}">
+
+</head>
+<body>
+
+    <!-- Pestañas Superiores Globales -->
+    <div class="nav-tabs">
+        <a href="{% url 'inicio' %}" class="nav-tab {% if request.resolver_match.url_name == 'inicio' %}active{% endif %}">Home</a>
+        <a href="{% url 'listar_clientes' %}" class="nav-tab {% if 'cliente' in request.resolver_match.url_name %}active{% endif %}">Customers</a>
+        <a href="{% url 'listar_vehiculos' %}" class="nav-tab {% if 'vehiculo' in request.resolver_match.url_name %}active{% endif %}">Vehicles</a>
+        <a href="{% url 'listar_viajes' %}" class="nav-tab {% if 'viaje' in request.resolver_match.url_name %}active{% endif %}">Trips</a>
+        <a href="{% url 'listar_pagos' %}" class="nav-tab {% if 'pago' in request.resolver_match.url_name %}active{% endif %}">Payments</a>
+        <a href="{% url 'listar_mantenciones' %}" class="nav-tab {% if 'mantencion' in request.resolver_match.url_name %}active{% endif %}">Maintenance</a>
+    </div>
+
+    <div class="content-container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
