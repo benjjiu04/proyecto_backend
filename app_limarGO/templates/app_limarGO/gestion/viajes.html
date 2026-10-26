@@ -1,0 +1,57 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<div class="sub-tabs">
+    <a href="{% url 'inicio' %}" class="sub-tab"> Home </a>
+    <span class="sub-tab active"> Pagos </span>
+</div>
+
+<div class="action-bar">
+    <div class="search-box">
+        <input type="text" placeholder="Buscar viaje por destino...">
+        <button class="btn btn-go">Go</button>
+    </div>
+    <div>
+        <a href="#" class="btn btn-primary">Registrar pago &gt;</a>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th> Cliente </th>
+            <th> ID Viaje </th>
+            <th> ID Conductor </th>
+            <th> ID Vehiculo </th>
+            <th> Fecha de pago </th>
+            <th> Destino </th>
+            <th> KM de ida </th>
+            <th> Km de vuelta </th>
+            <th> Costo del viaje </th>
+            <th> Estado del viaje </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        {% for viaje in viajes %}
+        <tr>
+            <td href="#"> {{viaje.cliente}} </td>
+            <td> {{viaje.id_viaje}} </td>
+            <td> {{viaje.id_conductor}} </td>
+            <td> {{viaje.id_vehiculo}} </td>
+            <td> {{viaje.fecha}} </td>
+            <td> {{viaje.destino}}</td>
+            <td> {{viaje.km_ida}}</td>
+            <td> {{viaje.km_vuelta}}</td>
+            <td> {{viaje.costo}}</td>
+            <td> {{viaje.estado}}</td>
+            
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" style="text-align: center; color: #64748b; padding: 20px;">No hay viajes registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

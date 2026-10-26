@@ -19,7 +19,8 @@
 <table>
     <thead>
         <tr>
-            <th>ID viaje</th>
+            <th>ID Pago</th>
+            <th>ID Viaje</th>
             <th>Monto</th>
             <th>Fecha de pago</th>
             <th>Metodo de pago</th>
@@ -30,6 +31,7 @@
     <tbody>
         {% for pa in pago %}
         <tr>
+            <td href="#"> {{pa.id_pago}} </td>
             <td> {{pa.id_viaje}} </td>
             <td> {{pa.monto}} </td>
             <td> {{pa.fecha_pago}} </td>
