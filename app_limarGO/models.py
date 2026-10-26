@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 class Usuario(models.Model):
     
@@ -10,7 +11,7 @@ class Usuario(models.Model):
     activo = models.BooleanField(default=True)
 
     class Meta:
-        db_table = 'Usuarios' # Para que use el nombre exacto de tu tabla en Azure
+        db_table = 'Usuarios' # sirve para que se declare de esa misma forma en la base de datos.
 
 class Cliente(models.Model):
     
@@ -54,9 +55,9 @@ class Viaje(models.Model):
     fecha = models.DateField()
     hora = models.TimeField()
     destino = models.CharField(max_length=200, blank=True)
-    km_ida = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    km_vuelta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    costo = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    km_ida = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0))
+    km_vuelta = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0))
+    costo = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0))
     estado = models.CharField(max_length=20, default='Programado')
 
     class Meta:

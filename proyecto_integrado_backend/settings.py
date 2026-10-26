@@ -1,4 +1,5 @@
 from pathlib import Path
+from dotenv import get_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'proyecto_integrado_backend.urls'
 
+NAME = get_key("./.env", "NAME")
+HOST = get_key("./.env", "HOST")
+USER = get_key("./.env", "USER")
+PASSWORD = get_key("./.env", "PASSWORD")
+PORT = get_key("./.env", "PORT")
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -62,11 +69,11 @@ WSGI_APPLICATION = 'proyecto_integrado_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nombre de la base de datos',
-        'USER': 'tu usuario de la base de datos',
-        'PASSWORD': 'tu contraseña de la base de datos',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'NAME': NAME,
+        'USER': USER,
+        'PASSWORD': PASSWORD,
+        'HOST': HOST,
+        'PORT': PORT,
     }
 }
 

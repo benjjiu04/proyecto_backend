@@ -19,12 +19,14 @@ def inicio(request):
         "total_conductores": Conductor.objects.count(),
         "total_vehiculos": Vehiculo.objects.count(),
         "total_viajes": Viaje.objects.count(),
+        "total_pagos": Pago.objects.count(),
+
         "viajes_programados": Viaje.objects.filter(
-            estado="Programado"
-        ).count(),
+            estado="Programado").count(),
+
         "pagos_pendientes": Pago.objects.filter(
-            estado="Pendiente"
-        ).count(),
+            estado="Pendiente").count(),
+            
         "total_mantenciones": Mantencion.objects.count(),
     }
 
