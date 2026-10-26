@@ -1,0 +1,46 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<div class="sub-tabs">
+    <a href="{% url 'inicio' %}" class="sub-tab">Home</a>
+    <span class="sub-tab active"> Clientes </span>
+</div>
+
+<div class="action-bar">
+    <div class="search-box">
+        <input type="text" placeholder="Buscar cliente por nombre...">
+        <button class="btn btn-go">Go</button>
+    </div>
+    <div>
+        <a href="#" class="btn btn-primary">Registrar cliente &gt;</a>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th> ID Cliente</th>
+            <th> Nombre </th>
+            <th> Telefono </th>
+            <th> Dirección </th>
+            <th> Frecuencia </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in clientes %}
+        <tr>
+            <td><a href="#">{{cliente.id_cliente}}</a></td>
+            <td> {{ cliente.nombre }} </td>
+            <td> {{ cliente.telefono }} </td>
+            <td> {{ cliente.direccion}} </td>
+            <td> {{cliente.frecuencia}} </td>
+ 
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="mensaje-no-registro"  colspan="7">No hay clientes registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

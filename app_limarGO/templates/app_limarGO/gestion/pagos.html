@@ -29,19 +29,19 @@
         </tr>
     </thead>
     <tbody>
-        {% for pa in pago %}
+        {% for pago in pagos %}
         <tr>
-            <td href="#"> {{pa.id_pago}} </td>
-            <td> {{pa.id_viaje}} </td>
-            <td> {{pa.monto}} </td>
-            <td> {{pa.fecha_pago}} </td>
-            <td> {{pa.metodo}} </td>
-            <td> {{pa.estado}}</td>
+            <td href="#"> {{pago.id_pago}} </td>
+            <td> {{pago.id_viaje}} </td>
+            <td> {{pago.monto}} </td>
+            <td> {{pago.fecha_pago}} </td>
+            <td> {{pago.metodo}} </td>
+            <td> {{pago.estado}}</td>
             
         </tr>
         {% empty %}
         <tr>
-            <td colspan="7" style="text-align: center; color: #64748b; padding: 20px;">No hay viajes registrados.</td>
+            <td class="mensaje-no-registro" colspan="7">No hay pagos registrados.</td>
         </tr>
         {% endfor %}
     </tbody>

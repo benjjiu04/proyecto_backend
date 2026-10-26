@@ -39,11 +39,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'proyecto_integrado_backend.urls'
 
-NAME = get_key("./.env", "NAME")
-HOST = get_key("./.env", "HOST")
-USER = get_key("./.env", "USER")
-PASSWORD = get_key("./.env", "PASSWORD")
-PORT = get_key("./.env", "PORT")
+NAME = get_key(".env", "NAME")
+HOST = get_key(".env", "HOST")
+USER = get_key(".env", "USER")
+PASSWORD = get_key(".env", "PASSWORD")
+PORT = get_key(".env", "PORT")
 
 TEMPLATES = [
     {
