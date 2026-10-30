@@ -1,0 +1,38 @@
+.container_panel{
+
+  display: grid; 
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px; margin-top: 20px;
+  text-align: center;
+}
+
+.total_registro{
+
+
+  padding: 20px;
+  border: 2px solid #3131319c;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px 1px rgb(from var(--main-bg-color) r calc(g + 10) b);
+  transition: box-shadow .19s ease-out;
+
+}
+
+.total_registro:hover{
+
+  box-shadow: 6px 6px 0px 2px rgb(from var(--main-bg-color) r calc(g + 10) b);
+}
+
+.total_registro h3{
+
+  margin: 0;
+  color: black;
+  font-size: 14px;
+}
+
+.total_registro p{
+
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e293b;
+  margin: 10px 0 0 0;
+}
