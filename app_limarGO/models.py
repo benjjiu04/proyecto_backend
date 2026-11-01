@@ -7,11 +7,11 @@ class Usuario(models.Model):
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(unique=True)
     contrasena = models.CharField(max_length=255)
-    rol = models.CharField(max_length=20) # Administrador, Operador, Conductor
+    rol = models.CharField(max_length=20) 
     activo = models.BooleanField(default=True)
 
     class Meta:
-        db_table = 'Usuarios' # sirve para que se declare de esa misma forma en la base de datos.
+        db_table = 'Usuarios' 
 
 class Cliente(models.Model):
     
@@ -71,7 +71,11 @@ class Pago(models.Model):
     fecha_pago = models.DateField(null=True, blank=True)
     metodo = models.CharField(max_length=30, blank=True)
     estado = models.CharField(max_length=20, default='Pendiente')
-
+    
+    def save(self, *args, **kwargs):
+        self.costo = (self.km_ida + self.km_vuelta) * Decimal(900)
+        super().save(*args, **kwargs) 
+        
     class Meta:
       db_table = 'Pagos'
 

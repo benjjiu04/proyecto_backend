@@ -1,0 +1,26 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<div class="auth-box">
+    <h2>Iniciar sesión</h2>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-error">Usuario o contraseña incorrectos.</div>
+        {% endif %}
+
+        {% for campo in form %}
+        <div class="form-row">
+            <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+            {{ campo }}
+        </div>
+        {% endfor %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+
+    <p>¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a></p>
+</div>
+{% endblock %}
