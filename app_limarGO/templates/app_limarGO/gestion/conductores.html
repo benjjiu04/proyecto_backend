@@ -1,0 +1,51 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<div class="sub-tabs">
+    <a href="{% url 'inicio' %}" class="sub-tab"> Home </a>
+    <span class="sub-tab active"> Conductores </span>
+</div>
+
+<div class="action-bar">
+    <div class="search-box">
+        <input type="text" placeholder="Buscar conductor por nombre...">
+        <button class="btn btn-go">Go</button>
+    </div>
+    <div>
+        <a href="{% url 'crear_conductor' %}" class="btn btn-primary">Registrar conductor &gt;</a>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID Conductor</th>
+            <th>Nombre</th>
+            <th>RUT</th>
+            <th>Teléfono</th>
+            <th>Tipo</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for conductor in conductores %}
+        <tr>
+            <td>{{ conductor.id_conductor }}</td>
+            <td>{{ conductor.nombre }}</td>
+            <td>{{ conductor.rut|default:"-" }}</td>
+            <td>{{ conductor.telefono }}</td>
+            <td>{{ conductor.tipo }}</td>
+            <td>{% if conductor.activo %}Sí{% else %}No{% endif %}</td>
+            <td>
+                <a href="{% url 'editar_conductor' conductor.id_conductor %}" class="btn btn-warning btn-sm">Editar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="mensaje-no-registro" colspan="7">No hay conductores registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
