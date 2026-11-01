@@ -1,34 +1,57 @@
-"""
-URL configuration for proyecto_integrado_backend project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
-from app_limarGO.views import (inicio, listar_clientes, listar_conductores,
-                              listar_vehiculos, listar_mantenciones, listar_pagos,
-                              listar_usuarios, listar_viajes)
+from django.contrib.auth import views as auth_views
+from app_limarGO.views import (
+    inicio, 
+    listar_clientes, crear_cliente, editar_cliente,
+    listar_conductores, crear_conductor, editar_conductor,
+    listar_vehiculos, crear_vehiculo, editar_vehiculo,
+    listar_mantenciones, crear_mantencion, editar_mantencion,
+    listar_pagos, crear_pago, editar_pago,
+    listar_usuarios,
+    listar_viajes, crear_viaje, editar_viaje
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # Rutas de Autenticación
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='app_limarGO/gestion/login.html'), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+    # Vista Principal
     path("", inicio, name="inicio"),
+
+    # Rutas de Clientes
     path("listar_clientes", listar_clientes, name="listar_clientes"),
-    path("listar_viajes", listar_viajes, name="listar_viajes"),
-    path("listar_usuarios", listar_usuarios, name="listar_usuarios"),
+    path("clientes/nuevo/", crear_cliente, name="crear_cliente"),
+    path("clientes/editar/<int:pk>/", editar_cliente, name="editar_cliente"),
+
+    # Rutas de Conductores
+    path("listar_conductores", listar_conductores, name="listar_conductores"),
+    path("conductores/nuevo/", crear_conductor, name="crear_conductor"),
+    path("conductores/editar/<int:pk>/", editar_conductor, name="editar_conductor"),
+
+    # Rutas de Vehículos
     path("listar_vehiculos", listar_vehiculos, name="listar_vehiculos"),
+    path("vehiculos/nuevo/", crear_vehiculo, name="crear_vehiculo"),
+    path("vehiculos/editar/<int:pk>/", editar_vehiculo, name="editar_vehiculo"),
+
+    # Rutas de Viajes
+    path("listar_viajes", listar_viajes, name="listar_viajes"),
+    path("viajes/nuevo/", crear_viaje, name="crear_viaje"),
+    path("viajes/editar/<int:pk>/", editar_viaje, name="editar_viaje"),
+
+    # Rutas de Pagos
     path("listar_pagos", listar_pagos, name="listar_pagos"),
-    path("listar_mantenciones", listar_mantenciones, name="listar_mantenciones")
+    path("pagos/nuevo/", crear_pago, name="crear_pago"),
+    path("pagos/editar/<int:pk>/", editar_pago, name="editar_pago"),
 
+    # Rutas de Mantenciones
+    path("listar_mantenciones", listar_mantenciones, name="listar_mantenciones"),
+    path("mantenciones/nuevo/", crear_mantencion, name="crear_mantencion"),
+    path("mantenciones/editar/<int:pk>/", editar_mantencion, name="editar_mantencion"),
 
+    # Usuarios
+    path("listar_usuarios", listar_usuarios, name="listar_usuarios"),
 ]
