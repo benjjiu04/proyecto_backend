@@ -17,13 +17,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { font-size: 17px; }
-body {
-    margin: 0;
-    font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
-    background: var(--fondo);
-    color: var(--texto);
-    line-height: 1.5;
-}
+
 a { color: var(--indigo); text-decoration: none; }
 a:hover { text-decoration: underline; }
 

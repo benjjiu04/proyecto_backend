@@ -3,16 +3,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sistema LimarGO</title>
-    <link rel="stylesheet" href="{% static 'css/todos.css' %}">
-    <link rel="stylesheet" href="{% static 'css/viajes.css' %}">
     <link rel="stylesheet" href="{% static 'css/globals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/panel.css' %}">
     <link rel="stylesheet" href="{% static 'css/todos.css' %}">
     <link rel="stylesheet" href="{% static 'css/viajes.css' %}">
 </head>
 <body>
 
-    <!-- Pestañas Superiores Globales -->
+    <!-- navbar -->
     <div class="nav-tabs">
         <a href="{% url 'inicio' %}" class="nav-tab {% if request.resolver_match.url_name == 'inicio' %}active{% endif %}"> Home </a>
         <a href="{% url 'listar_clientes' %}" class="nav-tab {% if 'cliente' in request.resolver_match.url_name %}active{% endif %}"> Clientes </a>
@@ -20,6 +20,19 @@
         <a href="{% url 'listar_viajes' %}" class="nav-tab {% if 'viaje' in request.resolver_match.url_name %}active{% endif %}"> Viajes </a>
         <a href="{% url 'listar_pagos' %}" class="nav-tab {% if 'pago' in request.resolver_match.url_name %}active{% endif %}"> Pagos </a>
         <a href="{% url 'listar_mantenciones' %}" class="nav-tab {% if 'mantencion' in request.resolver_match.url_name %}active{% endif %}"> Mantenciones </a>
+
+        {% if user.is_authenticated %}
+        <div class="nav-user">
+            <span class="nav-user-name">
+                <span class="nav-user-avatar">{{ user.username|first|upper }}</span>
+                {{ user.get_full_name|default:user.username }}
+            </span>
+            <form method="post" action="{% url 'logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Cerrar sesión</button>
+            </form>
+        </div>
+        {% endif %}
     </div>
 
     <div class="content-container">

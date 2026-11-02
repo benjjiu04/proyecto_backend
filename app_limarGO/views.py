@@ -1,3 +1,4 @@
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -25,8 +26,10 @@ from .forms import (
 # VISTA PRINCIPAL (DASHBOARD)
 # ==========================================
 @login_required(login_url='/accounts/login/')
-def inicio(request):
+def inicio(request: HttpRequest) -> HttpResponse:
+
     contexto = {
+
         "total_clientes": Cliente.objects.count(),
         "total_conductores": Conductor.objects.count(),
         "total_vehiculos": Vehiculo.objects.count(),
@@ -49,31 +52,36 @@ def inicio(request):
 # LISTADOS
 # ==========================================
 @login_required(login_url='/accounts/login/')
-def listar_usuarios(request):
+def listar_usuarios(request: HttpRequest) -> HttpResponse:
+
     usuarios = Usuario.objects.all().order_by("nombre")
     return render(request, "gestion/usuarios.html", {"usuarios": usuarios})
 
 
 @login_required(login_url='/accounts/login/')
-def listar_clientes(request):
+def listar_clientes(request: HttpRequest) -> HttpResponse:
+
     clientes = Cliente.objects.all().order_by("nombre")
     return render(request, "gestion/clientes.html", {"clientes": clientes})
 
 
 @login_required(login_url='/accounts/login/')
-def listar_conductores(request):
+def listar_conductores(request: HttpRequest) -> HttpResponse:
+
     conductores = Conductor.objects.all().order_by("nombre")
     return render(request, "gestion/conductores.html", {"conductores": conductores})
 
 
 @login_required(login_url='/accounts/login/')
-def listar_vehiculos(request):
+def listar_vehiculos(request: HttpRequest) -> HttpResponse:
+
     vehiculos = Vehiculo.objects.all().order_by("patente")
     return render(request, "gestion/vehiculos.html", {"vehiculos": vehiculos})
 
 
 @login_required(login_url='/accounts/login/')
-def listar_viajes(request):
+def listar_viajes(request: HttpRequest) -> HttpResponse:
+
     viajes = Viaje.objects.select_related(
         "id_cliente",
         "id_conductor",
@@ -83,7 +91,8 @@ def listar_viajes(request):
 
 
 @login_required(login_url='/accounts/login/')
-def listar_pagos(request):
+def listar_pagos(request: HttpRequest) -> HttpResponse:
+
     pagos = Pago.objects.select_related(
         "id_viaje",
         "id_viaje__id_cliente",
@@ -92,7 +101,8 @@ def listar_pagos(request):
 
 
 @login_required(login_url='/accounts/login/')
-def listar_mantenciones(request):
+def listar_mantenciones(request: HttpRequest) -> HttpResponse:
+
     mantenciones = Mantencion.objects.select_related(
         "id_vehiculo"
     ).order_by("-fecha")
@@ -104,10 +114,13 @@ def listar_mantenciones(request):
 # ==========================================
 
 @login_required(login_url='/accounts/login/')
-def crear_cliente(request):
+def crear_cliente(request: HttpRequest):
+    
     if request.method == 'POST':
         form = ClienteForm(request.POST)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Cliente registrado exitosamente.")
             return redirect('listar_clientes')
@@ -117,10 +130,13 @@ def crear_cliente(request):
 
 
 @login_required(login_url='/accounts/login/')
-def crear_conductor(request):
+def crear_conductor(request: HttpRequest) -> HttpResponseRedirect | HttpResponse:
+    
     if request.method == 'POST':
         form = ConductorForm(request.POST)
+
         if form.is_valid():
+
             form.save()
             messages.success(request, "Conductor registrado exitosamente.")
             return redirect('listar_conductores')
@@ -130,10 +146,13 @@ def crear_conductor(request):
 
 
 @login_required(login_url='/accounts/login/')
-def crear_vehiculo(request):
+def crear_vehiculo(request: HttpRequest) -> HttpResponseRedirect | HttpResponse:
+    
     if request.method == 'POST':
         form = VehiculoForm(request.POST)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Vehículo registrado exitosamente.")
             return redirect('listar_vehiculos')
@@ -144,9 +163,12 @@ def crear_vehiculo(request):
 
 @login_required(login_url='/accounts/login/')
 def crear_viaje(request):
+    
     if request.method == 'POST':
         form = ViajeForm(request.POST)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Viaje programado exitosamente.")
             return redirect('listar_viajes')
@@ -157,9 +179,12 @@ def crear_viaje(request):
 
 @login_required(login_url='/accounts/login/')
 def crear_pago(request):
+    
     if request.method == 'POST':
         form = PagoForm(request.POST)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Pago registrado exitosamente.")
             return redirect('listar_pagos')
@@ -170,9 +195,12 @@ def crear_pago(request):
 
 @login_required(login_url='/accounts/login/')
 def crear_mantencion(request):
+    
     if request.method == 'POST':
         form = MantencionForm(request.POST)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Mantención registrada exitosamente.")
             return redirect('listar_mantenciones')
@@ -187,10 +215,14 @@ def crear_mantencion(request):
 
 @login_required(login_url='/accounts/login/')
 def editar_cliente(request, pk):
+    
     cliente = get_object_or_404(Cliente, pk=pk)
+    
     if request.method == 'POST':
         form = ClienteForm(request.POST, instance=cliente)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Cliente actualizado exitosamente.")
             return redirect('listar_clientes')
@@ -201,10 +233,14 @@ def editar_cliente(request, pk):
 
 @login_required(login_url='/accounts/login/')
 def editar_conductor(request, pk):
+    
     conductor = get_object_or_404(Conductor, pk=pk)
+    
     if request.method == 'POST':
         form = ConductorForm(request.POST, instance=conductor)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Conductor actualizado exitosamente.")
             return redirect('listar_conductores')
@@ -215,10 +251,14 @@ def editar_conductor(request, pk):
 
 @login_required(login_url='/accounts/login/')
 def editar_vehiculo(request, pk):
+   
     vehiculo = get_object_or_404(Vehiculo, pk=pk)
+    
     if request.method == 'POST':
         form = VehiculoForm(request.POST, instance=vehiculo)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Vehículo actualizado exitosamente.")
             return redirect('listar_vehiculos')
@@ -229,10 +269,14 @@ def editar_vehiculo(request, pk):
 
 @login_required(login_url='/accounts/login/')
 def editar_viaje(request, pk):
+    
     viaje = get_object_or_404(Viaje, pk=pk)
+    
     if request.method == 'POST':
         form = ViajeForm(request.POST, instance=viaje)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Viaje actualizado exitosamente.")
             return redirect('listar_viajes')
@@ -242,25 +286,34 @@ def editar_viaje(request, pk):
 
 
 @login_required(login_url='/accounts/login/')
-def editar_pago(request, pk):
+def editar_pago(request: HttpRequest, pk):
+    
     pago = get_object_or_404(Pago, pk=pk)
+    
     if request.method == 'POST':
         form = PagoForm(request.POST, instance=pago)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Pago actualizado exitosamente.")
             return redirect('listar_pagos')
     else:
         form = PagoForm(instance=pago)
+
     return render(request, 'gestion/form_pago.html', {'form': form})
 
 
 @login_required(login_url='/accounts/login/')
 def editar_mantencion(request, pk):
+    
     mantencion = get_object_or_404(Mantencion, pk=pk)
+    
     if request.method == 'POST':
         form = MantencionForm(request.POST, instance=mantencion)
+        
         if form.is_valid():
+
             form.save()
             messages.success(request, "Mantención actualizada exitosamente.")
             return redirect('listar_mantenciones')
@@ -272,12 +325,14 @@ def editar_mantencion(request, pk):
 # ELIMINACIÓN DE REGISTROS (con confirmación)
 # ==========================================
 
-def _confirmar_eliminacion(request, objeto, tipo, seccion, url_listado, mensaje_ok, relacionados=""):
+def _confirmar_eliminacion(request: HttpRequest, objeto, tipo, seccion, url_listado, mensaje_ok, relacionados="") -> HttpResponseRedirect | HttpResponse:
+
     """GET muestra la pantalla de confirmación; POST elimina el registro."""
     if request.method == 'POST':
         objeto.delete()
         messages.success(request, mensaje_ok)
         return redirect(url_listado)
+    
     return render(request, 'gestion/confirmar_eliminar.html', {
         'objeto': objeto,
         'tipo': tipo,
@@ -288,12 +343,14 @@ def _confirmar_eliminacion(request, objeto, tipo, seccion, url_listado, mensaje_
 
 
 def _texto_relacionados(**conteos):
+
     """Ej: viajes=3, pagos=1 -> '3 viajes y 1 pagos' (solo los que tienen registros)."""
     return " y ".join(f"{n} {nombre}" for nombre, n in conteos.items() if n)
 
 
 @login_required(login_url='/accounts/login/')
-def eliminar_vehiculo(request, pk):
+def eliminar_vehiculo(request: HttpRequest, pk) -> HttpResponseRedirect | HttpResponse:
+
     vehiculo = get_object_or_404(Vehiculo, pk=pk)
     relacionados = _texto_relacionados(
         viajes=vehiculo.viaje_set.count(),
@@ -305,7 +362,8 @@ def eliminar_vehiculo(request, pk):
 
 
 @login_required(login_url='/accounts/login/')
-def eliminar_viaje(request, pk):
+def eliminar_viaje(request: HttpRequest, pk) -> HttpResponseRedirect | HttpResponse:
+
     viaje = get_object_or_404(Viaje, pk=pk)
     relacionados = _texto_relacionados(pagos=viaje.pago_set.count())
     return _confirmar_eliminacion(request, viaje, "viaje", "Viajes",
@@ -313,14 +371,16 @@ def eliminar_viaje(request, pk):
 
 
 @login_required(login_url='/accounts/login/')
-def eliminar_pago(request, pk):
+def eliminar_pago(request: HttpRequest, pk) -> HttpResponseRedirect | HttpResponse:
+
     pago = get_object_or_404(Pago, pk=pk)
     return _confirmar_eliminacion(request, pago, "pago", "Pagos",
                                   'listar_pagos', "Pago eliminado.")
 
 
 @login_required(login_url='/accounts/login/')
-def eliminar_mantencion(request, pk):
+def eliminar_mantencion(request: HttpRequest, pk) -> HttpResponseRedirect | HttpResponse:
+
     mantencion = get_object_or_404(Mantencion, pk=pk)
     return _confirmar_eliminacion(request, mantencion, "mantención", "Mantenciones",
                                   'listar_mantenciones', "Mantención eliminada.")

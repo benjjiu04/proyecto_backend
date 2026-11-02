@@ -261,10 +261,12 @@ class ViajeForm(EstiloFormMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        
         self.fields["destino"].required = True
         self.fields["id_cliente"].empty_label = "Selecciona un cliente"
         self.fields["id_conductor"].empty_label = "Selecciona un conductor"
         self.fields["id_vehiculo"].empty_label = "Selecciona un vehículo"
+        
         # Solo conductores activos y vehículos disponibles (más el ya asignado si se edita)
         self.fields["id_conductor"].queryset = Conductor.objects.filter(
             Q(activo=True) | Q(pk=self.instance.id_conductor_id)).order_by("nombre")
