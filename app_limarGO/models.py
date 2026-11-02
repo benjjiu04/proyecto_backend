@@ -17,7 +17,7 @@ class Cliente(models.Model):
     
     id_cliente = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
-    telefono = models.CharField(max_length=20, blank=True)
+    telefono = models.IntegerField(blank=True)
     direccion = models.CharField(max_length=200, blank=True)
     frecuencia = models.CharField(max_length=50, blank=True)
 

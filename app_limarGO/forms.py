@@ -1,7 +1,29 @@
+from typing import Any
+
 from django import forms
+from django.forms import ValidationError
 from .models import Cliente, Conductor, Vehiculo, Viaje, Pago, Mantencion, Usuario
 
 class ClienteForm(forms.ModelForm):
+
+    def clean_nombre(self):
+
+        usuario: str | None = self.cleaned_data.get("usuario")
+        tiene_numeros = 0
+
+        if usuario is not None:
+
+            for char in usuario:
+                if char.isdecimal:
+                    tiene_numeros += 1
+                    
+            if tiene_numeros >= 1:
+                raise ValidationError("el nombre no puede contener caracteres numericos.")
+            
+        
+
+
+    
     class Meta:
         model = Cliente
         fields = '__all__'
