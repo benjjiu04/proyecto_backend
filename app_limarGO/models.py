@@ -37,6 +37,7 @@ class Cliente(models.Model):
 
 
 class Conductor(models.Model):
+
     id_conductor = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     rut = models.CharField(max_length=12, unique=True, blank=True, null=True)
@@ -52,11 +53,12 @@ class Conductor(models.Model):
 
 
 class Vehiculo(models.Model):
+
     id_vehiculo = models.AutoField(primary_key=True)
     patente = models.CharField(max_length=10, unique=True)
     marca = models.CharField(max_length=50, blank=True)
     modelo = models.CharField(max_length=50, blank=True)
-    km_actual = models.IntegerField(default=0)
+    km_actual = models.DecimalField(default=Decimal(0))
     estado = models.CharField(max_length=20, default='Activo')
 
     def __str__(self):
