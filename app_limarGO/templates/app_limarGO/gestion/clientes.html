@@ -34,11 +34,10 @@
             <td> {{ cliente.telefono }} </td>
             <td> {{ cliente.direccion}} </td>
             <td> {{cliente.frecuencia}} </td>
- 
         </tr>
         {% empty %}
         <tr>
-            <td class="mensaje-no-registro"  colspan="7">No hay clientes registrados.</td>
+            <td class="mensaje-no-registro" colspan="5">No hay clientes registrados.</td>
         </tr>
         {% endfor %}
     </tbody>

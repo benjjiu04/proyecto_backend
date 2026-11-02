@@ -2,4 +2,15 @@
 :root{
   --main-bg-color: rgb(118, 182, 255);
   --main-color: rgb(30, 58, 138);
+  --azul: #2563eb;
+  --azul-osc: #1e3a8a;
+  --indigo: #4f46e5;
+  --verde: #16a34a;
+  --ambar: #f59e0b;
+    --rojo: #dc2626;
+    --morado: #7c3aed;
+    --rosa: #db2777;
+    --fondo: #eef2ff;
+    --borde: #c7d2fe;
+    --texto: #1e293b;
 }

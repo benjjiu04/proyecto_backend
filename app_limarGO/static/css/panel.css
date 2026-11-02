@@ -1,26 +1,69 @@
+/* ---------- Card del panel de inicio ---------- */
+.panel-card{
+
+  overflow: hidden;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff 50%, #f5f3ff);
+  border: 2px solid black;
+  border-radius: 18px;
+  box-shadow: 6px 6px 0px 1px black;
+}
+
+.panel-card-head{
+
+  padding: 24px 30px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--azul), var(--indigo) 60%, var(--morado));
+  border-bottom: 2px solid black;
+}
+
+/* selector más específico para ganarle a ".content-container h2" de todos.css */
+.panel-card .panel-card-head h2{
+
+  margin: 0 0 6px;
+  font-size: 1.9rem;
+  color: #ffffff;
+}
+
+.panel-card-head p{
+
+  margin: 0;
+  font-size: .98rem;
+  color: #c7d2fe;
+}
+
+/* ---------- Grid con los totales ---------- */
 .container_panel{
 
-  display: grid; 
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px; margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 20px;
+  padding: 24px;
   text-align: center;
 }
 
 .total_registro{
 
-
   padding: 20px;
-  border: 2px solid #3131319c;
+  border: 2px solid black;
   border-radius: 12px;
-  box-shadow: 4px 4px 0px 1px rgb(from var(--main-bg-color) r calc(g + 10) b);
-  transition: box-shadow .19s ease-out;
+  background: linear-gradient(135deg, #ffffff, #dbeafe);
+  box-shadow: 4px 4px 0px 1px black;
+  transition: box-shadow .19s ease-out, transform .19s ease-out;
 
 }
 
 .total_registro:hover{
 
-  box-shadow: 6px 6px 0px 2px rgb(from var(--main-bg-color) r calc(g + 10) b);
+  box-shadow: 6px 6px 0px 2px black;
+  transform: translate(-2px, -2px);
 }
+
+/* un degradado distinto por cada total */
+.total_registro:nth-child(1){ background: linear-gradient(135deg, #ffffff, #bfdbfe); }
+.total_registro:nth-child(2){ background: linear-gradient(135deg, #ffffff, #bbf7d0); }
+.total_registro:nth-child(3){ background: linear-gradient(135deg, #ffffff, #fde68a); }
+.total_registro:nth-child(4){ background: linear-gradient(135deg, #ffffff, #ddd6fe); }
+.total_registro:nth-child(5){ background: linear-gradient(135deg, #ffffff, #fbcfe8); }
 
 .total_registro h3{
 

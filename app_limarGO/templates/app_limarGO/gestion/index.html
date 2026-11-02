@@ -5,29 +5,33 @@
     <span class="sub-tab active">Home</span>
 </div>
 
-<h2>Panel de Control - LimarGO</h2>
+<section class="panel-card">
+    <header class="panel-card-head">
+        <h2>Panel de Control - LimarGO</h2>
+        <p>Resumen general del sistema</p>
+    </header>
 
-<div class="container_panel">
-    <div class="total_registro">
-        <h3 class="texto_panel">Total Clientes</h3>
-        <p> {{ total_clientes }} </p>
+    <div class="container_panel">
+        <div class="total_registro">
+            <h3>Total Clientes</h3>
+            <p>{{ total_clientes }}</p>
+        </div>
+        <div class="total_registro">
+            <h3>Total Conductores</h3>
+            <p>{{ total_conductores }}</p>
+        </div>
+        <div class="total_registro">
+            <h3>Total Vehículos</h3>
+            <p>{{ total_vehiculos }}</p>
+        </div>
+        <div class="total_registro">
+            <h3>Viajes Programados</h3>
+            <p>{{ viajes_programados }}</p>
+        </div>
+        <div class="total_registro">
+            <h3>Total Pagos</h3>
+            <p>{{ total_pagos }}</p>
+        </div>
     </div>
-    <div class="total_registro">
-        <h3>Total Conductores</h3>
-        <p> {{ total_conductores }} </p>
-    </div>
-    <div class="total_registro">
-        <h3>Total Vehículos</h3>
-        <p> {{ total_vehiculos }} </p>
-    </div>
-    <div class="total_registro">
-        <h3>Viajes Programados</h3>
-        <p> {{ viajes_programados }} </p>
-    </div>
-    <div class="total_registro">
-      <h3>Total pagos</h3>
-      <p> {{ total_pagos }}</p>
-    </div>
-    
-</div>
+</section>
 {% endblock %}
