@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
+
 from app_limarGO.views import (
     inicio, 
     listar_clientes, crear_cliente, editar_cliente,
@@ -9,7 +10,8 @@ from app_limarGO.views import (
     listar_mantenciones, crear_mantencion, editar_mantencion,
     listar_pagos, crear_pago, editar_pago,
     listar_usuarios,
-    listar_viajes, crear_viaje, editar_viaje
+    listar_viajes, crear_viaje, editar_viaje,
+    eliminar_vehiculo, eliminar_viaje, eliminar_pago, eliminar_mantencion,
 )
 
 urlpatterns = [
@@ -51,6 +53,12 @@ urlpatterns = [
     path("listar_mantenciones", listar_mantenciones, name="listar_mantenciones"),
     path("mantenciones/nuevo/", crear_mantencion, name="crear_mantencion"),
     path("mantenciones/editar/<int:pk>/", editar_mantencion, name="editar_mantencion"),
+
+    # Rutas de eliminación
+    path("vehiculos/eliminar/<int:pk>/", eliminar_vehiculo, name="eliminar_vehiculo"),
+    path("viajes/eliminar/<int:pk>/", eliminar_viaje, name="eliminar_viaje"),
+    path("pagos/eliminar/<int:pk>/", eliminar_pago, name="eliminar_pago"),
+    path("mantenciones/eliminar/<int:pk>/", eliminar_mantencion, name="eliminar_mantencion"),
 
     # Usuarios
     path("listar_usuarios", listar_usuarios, name="listar_usuarios"),

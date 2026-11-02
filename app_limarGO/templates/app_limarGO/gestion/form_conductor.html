@@ -1,15 +1,6 @@
 {% extends 'gestion/base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2>{% if form.instance.pk %}Editar Conductor{% else %}Registrar Nuevo Conductor{% endif %}</h2>
-    
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Guardar Conductor</button>
-    </form>
-    
-    <a href="{% url 'listar_conductores' %}" class="btn btn-secondary mt-3">Volver al listado</a>
-</div>
+{% url 'listar_conductores' as volver_url %}
+{% include 'gestion/_form_card.html' with seccion='Conductores' nuevo='Registrar conductor' edicion='Editar conductor' guardar='Guardar conductor' %}
 {% endblock %}

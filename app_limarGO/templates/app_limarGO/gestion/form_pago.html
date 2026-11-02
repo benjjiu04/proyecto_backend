@@ -1,15 +1,6 @@
 {% extends 'gestion/base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2>{% if form.instance.pk %}Editar Pago{% else %}Registrar Nuevo Pago{% endif %}</h2>
-    
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Guardar Pago</button>
-    </form>
-    
-    <a href="{% url 'listar_pagos' %}" class="btn btn-secondary mt-3">Volver al listado</a>
-</div>
+{% url 'listar_pagos' as volver_url %}
+{% include 'gestion/_form_card.html' with seccion='Pagos' nuevo='Registrar pago' edicion='Editar pago' guardar='Guardar pago' %}
 {% endblock %}

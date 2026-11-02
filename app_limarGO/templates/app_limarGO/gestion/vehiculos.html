@@ -12,7 +12,7 @@
         <button class="btn btn-go">Go</button>
     </div>
     <div>
-        <a href="#" class="btn btn-primary">Registrar vehiculo &gt;</a>
+        <a href="{% url 'crear_vehiculo' %}" class="btn btn-primary">Registrar vehiculo &gt;</a>
     </div>
 </div>
 
@@ -25,21 +25,22 @@
             <th> Modelo </th>
             <th> Km actual </th>
             <th> Estado </th>
-
-           
+            <th> Acciones </th>
         </tr>
     </thead>
     <tbody>
         {% for vehiculo in vehiculos %}
         <tr>
-            <td href="#"> {{vehiculo.patente}} </td>
-            <td> {{vehiculo.id_vehiculo}} </td>
-            <td> {{vehiculo.marca}} </td>
-            <td> {{vehiculo.modelo}} </td>
-            <td> {{vehiculo.km_actual}} </td>
-            <td> {{vehiculo.estado}} </td>
- 
-            
+            <td> {{ vehiculo.patente }} </td>
+            <td> {{ vehiculo.id_vehiculo }} </td>
+            <td> {{ vehiculo.marca }} </td>
+            <td> {{ vehiculo.modelo }} </td>
+            <td> {{ vehiculo.km_actual }} </td>
+            <td> {{ vehiculo.estado }} </td>
+            <td>
+                <a href="{% url 'editar_vehiculo' vehiculo.id_vehiculo %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'eliminar_vehiculo' vehiculo.id_vehiculo %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
         </tr>
         {% empty %}
         <tr>

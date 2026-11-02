@@ -1,0 +1,27 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+<div class="sub-tabs">
+    <a href="{% url 'inicio' %}" class="sub-tab">Home</a>
+    <a href="{{ volver_url }}" class="sub-tab">{{ seccion }}</a>
+    <span class="sub-tab active">Eliminar</span>
+</div>
+
+<form method="post" class="form-card">
+    {% csrf_token %}
+    <header class="form-card-head">
+        <h2>Eliminar {{ tipo }}</h2>
+        <p>Revisa los datos antes de confirmar.</p>
+    </header>
+    <div class="confirm-body">
+        <p>Vas a eliminar <strong>{{ objeto }}</strong>. Esta acción no se puede deshacer.</p>
+    </div>
+    {% if relacionados %}
+        <div class="form-alert" role="alert"><p>También se eliminarán los registros asociados: {{ relacionados }}.</p></div>
+    {% endif %}
+    <footer class="form-card-foot" style="margin-top:20px">
+        <a href="{{ volver_url }}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-danger">Sí, eliminar {{ tipo }}</button>
+    </footer>
+</form>
+{% endblock %}

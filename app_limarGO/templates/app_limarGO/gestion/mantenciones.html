@@ -12,30 +12,35 @@
         <button class="btn btn-go">Go</button>
     </div>
     <div>
-        <a href="#" class="btn btn-primary">Registrar mantencion &gt;</a>
+        <a href="{% url 'crear_mantencion' %}" class="btn btn-primary">Registrar mantencion &gt;</a>
     </div>
 </div>
 
 <table>
     <thead>
         <tr>
-            <th>ID Vehiculo</th>
+            <th>ID Mantención</th>
+            <th>Vehículo</th>
             <th>Fecha</th>
-            <th>KM Mantencion</th>
+            <th>KM Mantención</th>
             <th>Piezas Cambiadas</th>
             <th>Observaciones</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         {% for mantencion in mantenciones %}
         <tr>
-            <td><a href="#">{{mantencion.id_mantencion}}</a></td>
-            <td> {{ mantencion.id_vehiculo }} </td>
-            <td> {{ mantencion.fecha }} </td>
-            <td> {{ mantencion.km_mantencion}} </td>
-            <td> {{mantencion.piezas_cambiadas}} </td>
-            <td> {{mantencion.observaciones}}</td>
- 
+            <td>{{ mantencion.id_mantencion }}</td>
+            <td>{{ mantencion.id_vehiculo }}</td>
+            <td>{{ mantencion.fecha }}</td>
+            <td>{{ mantencion.km_mantencion }}</td>
+            <td>{{ mantencion.piezas_cambiadas }}</td>
+            <td>{{ mantencion.observaciones }}</td>
+            <td>
+                <a href="{% url 'editar_mantencion' mantencion.id_mantencion %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'eliminar_mantencion' mantencion.id_mantencion %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
         </tr>
         {% empty %}
         <tr>

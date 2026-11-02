@@ -1,0 +1,46 @@
+<div class="sub-tabs">
+    <a href="{% url 'inicio' %}" class="sub-tab">Home</a>
+    <a href="{{ volver_url }}" class="sub-tab">{{ seccion }}</a>
+    <span class="sub-tab active">{% if form.instance.pk %}Editar{% else %}Registrar{% endif %}</span>
+</div>
+
+<form method="post" class="form-card">
+    {% csrf_token %}
+
+    <header class="form-card-head">
+        <h2>{% if form.instance.pk %}{{ edicion }}{% else %}{{ nuevo }}{% endif %}</h2>
+        <p>Los campos con <span class="req">*</span> son obligatorios.</p>
+    </header>
+
+    {% if form.non_field_errors %}
+        <div class="form-alert" role="alert">
+            {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+        </div>
+    {% elif form.errors %}
+        <div class="form-alert" role="alert"><p>Revisa los campos marcados en rojo antes de guardar.</p></div>
+    {% endif %}
+
+    <div class="form-grid">
+        {% for field in form %}
+            {% if field.widget_type == 'checkbox' %}
+                <div class="field field-check full">
+                    {{ field }}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {% if field.help_text %}<small class="help">{{ field.help_text }}</small>{% endif %}
+                </div>
+            {% else %}
+                <div class="field {{ field.css_classes }}{% if field.field.full_width %} full{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span class="req" aria-hidden="true">*</span>{% endif %}</label>
+                    {{ field }}
+                    {% if field.help_text %}<small class="help">{{ field.help_text }}</small>{% endif %}
+                    {% for error in field.errors %}<p class="error-msg" role="alert">{{ error }}</p>{% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <footer class="form-card-foot">
+        <a href="{{ volver_url }}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">{{ guardar }}</button>
+    </footer>
+</form>

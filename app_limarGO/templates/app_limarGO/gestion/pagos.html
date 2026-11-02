@@ -12,7 +12,7 @@
         <button class="btn btn-go">Go</button>
     </div>
     <div>
-        <a href="#" class="btn btn-primary">Registrar pago &gt;</a>
+        <a href="{% url 'crear_pago' %}" class="btn btn-primary">Registrar pago &gt;</a>
     </div>
 </div>
 
@@ -24,20 +24,23 @@
             <th>Monto</th>
             <th>Fecha de pago</th>
             <th>Metodo de pago</th>
-            <th> Estado </th>
-           
+            <th>Estado</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         {% for pago in pagos %}
         <tr>
-            <td href="#"> {{pago.id_pago}} </td>
-            <td> {{pago.id_viaje}} </td>
-            <td> {{pago.monto}} </td>
-            <td> {{pago.fecha_pago}} </td>
-            <td> {{pago.metodo}} </td>
-            <td> {{pago.estado}}</td>
-            
+            <td> {{ pago.id_pago }} </td>
+            <td> {{ pago.id_viaje }} </td>
+            <td> {{ pago.monto }} </td>
+            <td> {{ pago.fecha_pago }} </td>
+            <td> {{ pago.metodo }} </td>
+            <td> {{ pago.estado }} </td>
+            <td>
+                <a href="{% url 'editar_pago' pago.id_pago %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'eliminar_pago' pago.id_pago %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
         </tr>
         {% empty %}
         <tr>

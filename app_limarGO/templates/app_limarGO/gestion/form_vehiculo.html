@@ -1,15 +1,6 @@
 {% extends 'gestion/base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2>{% if form.instance.pk %}Editar Vehículo{% else %}Registrar Nuevo Vehículo{% endif %}</h2>
-    
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Guardar Vehículo</button>
-    </form>
-    
-    <a href="{% url 'listar_vehiculos' %}" class="btn btn-secondary mt-3">Volver al listado</a>
-</div>
+{% url 'listar_vehiculos' as volver_url %}
+{% include 'gestion/_form_card.html' with seccion='Vehículos' nuevo='Registrar vehículo' edicion='Editar vehículo' guardar='Guardar vehículo' %}
 {% endblock %}

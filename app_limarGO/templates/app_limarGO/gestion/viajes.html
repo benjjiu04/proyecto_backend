@@ -12,7 +12,7 @@
         <button class="btn btn-go">Go</button>
     </div>
     <div>
-        <a href="#" class="btn btn-primary">Registrar viaje &gt;</a>
+        <a href="{% url 'crear_viaje' %}" class="btn btn-primary">Registrar viaje &gt;</a>
     </div>
 </div>
 
@@ -23,33 +23,36 @@
             <th> ID Viaje </th>
             <th> ID Conductor </th>
             <th> ID Vehiculo </th>
-            <th> Fecha de pago </th>
+            <th> Fecha </th>
             <th> Destino </th>
             <th> KM de ida </th>
             <th> Km de vuelta </th>
             <th> Costo del viaje </th>
             <th> Estado del viaje </th>
-           
+            <th> Acciones </th>
         </tr>
     </thead>
     <tbody>
         {% for viaje in viajes %}
         <tr>
-            <td href="#"> {{viaje.cliente}} </td>
-            <td> {{viaje.id_viaje}} </td>
-            <td> {{viaje.id_conductor}} </td>
-            <td> {{viaje.id_vehiculo}} </td>
-            <td> {{viaje.fecha}} </td>
-            <td> {{viaje.destino}}</td>
-            <td> {{viaje.km_ida}}</td>
-            <td> {{viaje.km_vuelta}}</td>
-            <td> {{viaje.costo}}</td>
-            <td> {{viaje.estado}}</td>
-            
+            <td> {{ viaje.id_cliente }} </td>
+            <td> {{ viaje.id_viaje }} </td>
+            <td> {{ viaje.id_conductor }} </td>
+            <td> {{ viaje.id_vehiculo }} </td>
+            <td> {{ viaje.fecha }} </td>
+            <td> {{ viaje.destino }} </td>
+            <td> {{ viaje.km_ida }} </td>
+            <td> {{ viaje.km_vuelta }} </td>
+            <td> {{ viaje.costo }} </td>
+            <td> {{ viaje.estado }} </td>
+            <td>
+                <a href="{% url 'editar_viaje' viaje.id_viaje %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'eliminar_viaje' viaje.id_viaje %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td class="mensaje-no-registro" colspan="10">No hay viajes registrados.</td>
+            <td class="mensaje-no-registro" colspan="11">No hay viajes registrados.</td>
         </tr>
         {% endfor %}
     </tbody>
