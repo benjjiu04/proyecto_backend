@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crear cuenta - LimarGO</title>
+    <link rel="stylesheet" href="{% static 'css/todos.css' %}">
+</head>
+<body>
+    <div class="login-page">
+        <form method="post" class="form-card login-card" novalidate>
+            {% csrf_token %}
+            <header class="form-card-head">
+                <h2>Crear cuenta</h2>
+                <p>Sistema de gestión LimarGO</p>
+            </header>
+
+            {% if form.errors %}
+                <div class="form-alert" role="alert">
+                    {% for campo in form %}{% for error in campo.errors %}<p>{{ error }}</p>{% endfor %}{% endfor %}
+                    {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="form-grid single">
+                {% for campo in form %}
+                <div class="field {% if campo.errors %}has-error{% endif %}">
+                    <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                    {{ campo }}
+                    {% if campo.help_text %}<span class="help">{{ campo.help_text|safe }}</span>{% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <footer class="form-card-foot">
+                <button type="submit" class="btn btn-primary" style="width:100%">Registrarme</button>
+            </footer>
+            <p style="text-align:center;margin:0 0 22px">¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+        </form>
+    </div>
+</body>
+</html>

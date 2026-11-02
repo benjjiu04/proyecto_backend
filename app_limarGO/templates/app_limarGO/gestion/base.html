@@ -20,6 +20,7 @@
         <a href="{% url 'listar_viajes' %}" class="nav-tab {% if 'viaje' in request.resolver_match.url_name %}active{% endif %}"> Viajes </a>
         <a href="{% url 'listar_pagos' %}" class="nav-tab {% if 'pago' in request.resolver_match.url_name %}active{% endif %}"> Pagos </a>
         <a href="{% url 'listar_mantenciones' %}" class="nav-tab {% if 'mantencion' in request.resolver_match.url_name %}active{% endif %}"> Mantenciones </a>
+        <a href="{% url 'reportes' %}" class="nav-tab {% if request.resolver_match.url_name == 'reportes' %}active{% endif %}"> Reportes </a>
 
         {% if user.is_authenticated %}
         <div class="nav-user">

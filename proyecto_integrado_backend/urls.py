@@ -12,6 +12,7 @@ from app_limarGO.views import (
     listar_usuarios,
     listar_viajes, crear_viaje, editar_viaje,
     eliminar_vehiculo, eliminar_viaje, eliminar_pago, eliminar_mantencion,
+    eliminar_cliente, eliminar_conductor, registro, reportes,
 )
 
 urlpatterns = [
@@ -20,6 +21,7 @@ urlpatterns = [
     # Rutas de Autenticación
     path('accounts/login/', auth_views.LoginView.as_view(template_name='app_limarGO/gestion/login.html'), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('accounts/registro/', registro, name='registro'),
 
     # Vista Principal
     path("", inicio, name="inicio"),
@@ -59,7 +61,12 @@ urlpatterns = [
     path("viajes/eliminar/<int:pk>/", eliminar_viaje, name="eliminar_viaje"),
     path("pagos/eliminar/<int:pk>/", eliminar_pago, name="eliminar_pago"),
     path("mantenciones/eliminar/<int:pk>/", eliminar_mantencion, name="eliminar_mantencion"),
+    path("clientes/eliminar/<int:pk>/", eliminar_cliente, name="eliminar_cliente"),
+    path("conductores/eliminar/<int:pk>/", eliminar_conductor, name="eliminar_conductor"),
 
     # Usuarios
     path("listar_usuarios", listar_usuarios, name="listar_usuarios"),
+
+    # Reportes
+    path("reportes/", reportes, name="reportes"),
 ]

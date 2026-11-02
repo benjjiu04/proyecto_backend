@@ -39,6 +39,7 @@
             <td>{% if conductor.activo %}Sí{% else %}No{% endif %}</td>
             <td>
                 <a href="{% url 'editar_conductor' conductor.id_conductor %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'eliminar_conductor' conductor.id_conductor %}" class="btn btn-danger btn-sm">Eliminar</a>
             </td>
         </tr>
         {% empty %}

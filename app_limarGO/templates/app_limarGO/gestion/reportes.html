@@ -1,0 +1,95 @@
+{% extends 'gestion/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/reportes.css' %}">
+
+<div class="sub-tabs">
+    <a href="{% url 'inicio' %}" class="sub-tab">Home</a>
+    <span class="sub-tab active">Reportes</span>
+</div>
+
+<h2>Reportes y estadísticas</h2>
+
+<div class="rp-kpis">
+    <div class="rp-kpi"><span>Viajes (sin cancelados)</span><strong>{{ resumen.total_viajes }}</strong></div>
+    <div class="rp-kpi"><span>Ingreso estimado</span><strong>${{ resumen.ingreso_estimado|default:0|floatformat:0 }}</strong></div>
+    <div class="rp-kpi"><span>Costo promedio por viaje</span><strong>${{ resumen.costo_promedio|default:0|floatformat:0 }}</strong></div>
+    <div class="rp-kpi"><span>Kilómetros recorridos</span><strong>{{ resumen.km_total|floatformat:0 }} km</strong></div>
+    <div class="rp-kpi verde"><span>Cobrado (pagos Pagado)</span><strong>${{ pagado|floatformat:0 }}</strong></div>
+    <div class="rp-kpi ambar"><span>Por cobrar (pagos Pendiente)</span><strong>${{ pendiente|floatformat:0 }}</strong></div>
+</div>
+
+<div class="rp-grid">
+
+    <section class="rp-card">
+        <h3>Viajes por estado</h3>
+        {% for f in por_estado %}
+        <div class="rp-row">
+            <span class="rp-label">{{ f.etiqueta }}</span>
+            <div class="rp-track"><div class="rp-fill" style="width: {{ f.pct }}%"></div></div>
+            <span class="rp-value">{{ f.cantidad }}</span>
+        </div>
+        {% empty %}<p class="rp-empty">Sin datos.</p>{% endfor %}
+    </section>
+
+    <section class="rp-card">
+        <h3>Ingresos por mes</h3>
+        {% for f in por_mes %}
+        <div class="rp-row">
+            <span class="rp-label">{{ f.mes|date:"M Y" }}</span>
+            <div class="rp-track"><div class="rp-fill verde" style="width: {{ f.pct }}%"></div></div>
+            <span class="rp-value">${{ f.ingreso|floatformat:0 }}</span>
+        </div>
+        {% empty %}<p class="rp-empty">Sin datos.</p>{% endfor %}
+    </section>
+
+    <section class="rp-card">
+        <h3>Top 5 clientes por ingreso</h3>
+        {% for f in top_clientes %}
+        <div class="rp-row">
+            <span class="rp-label">{{ f.etiqueta }}</span>
+            <div class="rp-track"><div class="rp-fill morado" style="width: {{ f.pct }}%"></div></div>
+            <span class="rp-value">${{ f.ingreso|floatformat:0 }} · {{ f.viajes }} viaje{{ f.viajes|pluralize }}</span>
+        </div>
+        {% empty %}<p class="rp-empty">Sin datos.</p>{% endfor %}
+    </section>
+
+    <section class="rp-card">
+        <h3>Viajes por conductor</h3>
+        {% for f in por_conductor %}
+        <div class="rp-row">
+            <span class="rp-label">{{ f.etiqueta }}</span>
+            <div class="rp-track"><div class="rp-fill" style="width: {{ f.pct }}%"></div></div>
+            <span class="rp-value">{{ f.viajes }} · {{ f.km|floatformat:0 }} km</span>
+        </div>
+        {% empty %}<p class="rp-empty">Sin datos.</p>{% endfor %}
+    </section>
+
+    <section class="rp-card">
+        <h3>Pagos cobrados por método</h3>
+        {% for f in por_metodo %}
+        <div class="rp-row">
+            <span class="rp-label">{{ f.etiqueta }}</span>
+            <div class="rp-track"><div class="rp-fill ambar" style="width: {{ f.pct }}%"></div></div>
+            <span class="rp-value">${{ f.total|floatformat:0 }}</span>
+        </div>
+        {% empty %}<p class="rp-empty">Sin pagos cobrados.</p>{% endfor %}
+    </section>
+
+    <section class="rp-card">
+        <h3>Uso y mantenciones por vehículo</h3>
+        <table class="rp-table">
+            <thead><tr><th>Patente</th><th>Viajes</th><th>Mantenciones</th><th>Km actual</th></tr></thead>
+            <tbody>
+            {% for v in por_vehiculo %}
+                <tr><td>{{ v.patente }}</td><td>{{ v.viajes }}</td><td>{{ v.mantenciones }}</td><td>{{ v.km_actual }}</td></tr>
+            {% empty %}
+                <tr><td colspan="4" class="rp-empty">Sin vehículos.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+</div>
+{% endblock %}

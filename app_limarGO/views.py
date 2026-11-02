@@ -1,7 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Count, Sum, Avg, F
+from django.db.models.functions import TruncMonth
 from django.urls import reverse
 
 from .models import (
@@ -384,3 +388,128 @@ def eliminar_mantencion(request: HttpRequest, pk) -> HttpResponseRedirect | Http
     mantencion = get_object_or_404(Mantencion, pk=pk)
     return _confirmar_eliminacion(request, mantencion, "mantención", "Mantenciones",
                                   'listar_mantenciones', "Mantención eliminada.")
+
+
+# ==========================================
+# ELIMINAR CLIENTE Y CONDUCTOR (NUEVO)
+# ==========================================
+@login_required(login_url='/accounts/login/')
+def eliminar_cliente(request: HttpRequest, pk) -> HttpResponseRedirect | HttpResponse:
+
+    cliente = get_object_or_404(Cliente, pk=pk)
+    relacionados = _texto_relacionados(
+        viajes=cliente.viaje_set.count(),
+        pagos=Pago.objects.filter(id_viaje__id_cliente=cliente).count(),
+    )
+    return _confirmar_eliminacion(request, cliente, "cliente", "Clientes",
+                                  'listar_clientes', "Cliente eliminado.", relacionados)
+
+
+@login_required(login_url='/accounts/login/')
+def eliminar_conductor(request: HttpRequest, pk) -> HttpResponseRedirect | HttpResponse:
+
+    conductor = get_object_or_404(Conductor, pk=pk)
+    relacionados = _texto_relacionados(
+        viajes=conductor.viaje_set.count(),
+        pagos=Pago.objects.filter(id_viaje__id_conductor=conductor).count(),
+    )
+    return _confirmar_eliminacion(request, conductor, "conductor", "Conductores",
+                                  'listar_conductores', "Conductor eliminado.", relacionados)
+
+
+# ==========================================
+# REGISTRO DE USUARIOS (NUEVO)
+# ==========================================
+def registro(request: HttpRequest) -> HttpResponse:
+
+    if request.user.is_authenticated:
+        return redirect('inicio')
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            usuario = form.save()
+            login(request, usuario)
+            messages.success(request, f"Bienvenido, {usuario.username}. Tu cuenta fue creada.")
+            return redirect('inicio')
+    else:
+        form = UserCreationForm()
+
+    for campo in form.fields.values():
+        campo.widget.attrs.setdefault('class', 'form-control')
+    return render(request, 'gestion/registro.html', {'form': form})
+
+
+# ==========================================
+# REPORTES (NUEVO) - agregaciones con el ORM
+# ==========================================
+def _barras(filas, clave_valor, clave_etiqueta):
+
+    """Agrega el porcentaje de cada fila respecto al máximo, para dibujar barras en CSS."""
+    filas = list(filas)
+    maximo = max((float(f[clave_valor] or 0) for f in filas), default=0) or 1
+    for f in filas:
+        f['pct'] = round(float(f[clave_valor] or 0) / maximo * 100)
+        f['etiqueta'] = f[clave_etiqueta]
+    return filas
+
+
+@login_required(login_url='/accounts/login/')
+def reportes(request: HttpRequest) -> HttpResponse:
+
+    viajes = Viaje.objects.exclude(estado="Cancelado")
+
+    resumen = viajes.aggregate(
+        total_viajes=Count("id_viaje"),
+        ingreso_estimado=Sum("costo"),
+        costo_promedio=Avg("costo"),
+        km_ida=Sum("km_ida"),
+        km_vuelta=Sum("km_vuelta"),
+    )
+    resumen["km_total"] = (resumen["km_ida"] or 0) + (resumen["km_vuelta"] or 0)
+
+    pagado = Pago.objects.filter(estado="Pagado").aggregate(t=Sum("monto"))["t"] or 0
+    pendiente = Pago.objects.filter(estado="Pendiente").aggregate(t=Sum("monto"))["t"] or 0
+
+    por_estado = _barras(
+        Viaje.objects.values("estado").annotate(cantidad=Count("id_viaje")).order_by("-cantidad"),
+        "cantidad", "estado")
+
+    por_mes = _barras(
+        viajes.annotate(mes=TruncMonth("fecha")).values("mes")
+        .annotate(ingreso=Sum("costo"), cantidad=Count("id_viaje")).order_by("mes"),
+        "ingreso", "mes")
+
+    top_clientes = _barras(
+        viajes.values("id_cliente__nombre").annotate(
+            viajes=Count("id_viaje"), ingreso=Sum("costo")).order_by("-ingreso")[:5],
+        "ingreso", "id_cliente__nombre")
+
+    por_conductor = _barras(
+        viajes.values("id_conductor__nombre").annotate(
+            viajes=Count("id_viaje"), km=Sum(F("km_ida") + F("km_vuelta"))).order_by("-viajes"),
+        "viajes", "id_conductor__nombre")
+
+    por_vehiculo = (Vehiculo.objects
+        .annotate(viajes=Count("viaje", distinct=True),
+                  mantenciones=Count("mantencion", distinct=True))
+        .order_by("-viajes", "patente"))
+
+    por_metodo = _barras(
+        Pago.objects.filter(estado="Pagado").exclude(metodo="").values("metodo")
+        .annotate(total=Sum("monto"), cantidad=Count("id_pago")).order_by("-total"),
+        "total", "metodo")
+
+    contexto = {
+        "resumen": resumen,
+        "pagado": pagado,
+        "pendiente": pendiente,
+        "por_estado": por_estado,
+        "por_mes": por_mes,
+        "top_clientes": top_clientes,
+        "por_conductor": por_conductor,
+        "por_vehiculo": por_vehiculo,
+        "por_metodo": por_metodo,
+    }
+    return render(request, "gestion/reportes.html", contexto)
