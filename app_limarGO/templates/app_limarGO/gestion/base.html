@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Sistema LimarGO</title>
-    <link rel="stylesheet" href="{% static 'css/globals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/todos.css' %}">
     <link rel="stylesheet" href="{% static 'css/viajes.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/globals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/todos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viajes.css' %}">
 </head>
 <body>
 
@@ -21,6 +23,12 @@
     </div>
 
     <div class="content-container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}<div class="msg {{ message.tags }}" role="status">{{ message }}</div>{% endfor %}
+        </div>
+        {% endif %}
+
         {% block content %}
         {% endblock %}
     </div>

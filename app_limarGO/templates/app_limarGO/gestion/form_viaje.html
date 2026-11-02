@@ -1,0 +1,26 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+{% url 'listar_viajes' as volver_url %}
+{% include 'gestion/_form_card.html' with seccion='Viajes' nuevo='Programar viaje' edicion='Editar viaje' guardar='Guardar viaje' %}
+
+<script>
+(function () {
+    const tarifa = Number("{{ form.TARIFA_KM }}");
+    const ida = document.getElementById('id_km_ida');
+    const vuelta = document.getElementById('id_km_vuelta');
+    const caja = document.createElement('div');
+    caja.className = 'form-estimate';
+    document.querySelector('.form-card-foot').before(caja);
+
+    function calcular() {
+        const km = (parseFloat(ida.value) || 0) + (parseFloat(vuelta.value) || 0);
+        caja.innerHTML = 'Costo estimado: <strong>$' + Math.round(km * tarifa).toLocaleString('es-CL') +
+                         '</strong> (' + km + ' km x $' + tarifa.toLocaleString('es-CL') + ' por km)';
+    }
+    ida.addEventListener('input', calcular);
+    vuelta.addEventListener('input', calcular);
+    calcular();
+})();
+</script>
+{% endblock %}

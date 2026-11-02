@@ -1,0 +1,6 @@
+{% extends 'gestion/base.html' %}
+
+{% block content %}
+{% url 'listar_mantenciones' as volver_url %}
+{% include 'gestion/_form_card.html' with seccion='Mantenciones' nuevo='Registrar mantención' edicion='Editar mantención' guardar='Guardar mantención' %}
+{% endblock %}

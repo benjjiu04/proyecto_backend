@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 from .models import (
     Usuario,
@@ -266,3 +267,60 @@ def editar_mantencion(request, pk):
     else:
         form = MantencionForm(instance=mantencion)
     return render(request, 'gestion/form_mantencion.html', {'form': form})
+
+# ==========================================
+# ELIMINACIÓN DE REGISTROS (con confirmación)
+# ==========================================
+
+def _confirmar_eliminacion(request, objeto, tipo, seccion, url_listado, mensaje_ok, relacionados=""):
+    """GET muestra la pantalla de confirmación; POST elimina el registro."""
+    if request.method == 'POST':
+        objeto.delete()
+        messages.success(request, mensaje_ok)
+        return redirect(url_listado)
+    return render(request, 'gestion/confirmar_eliminar.html', {
+        'objeto': objeto,
+        'tipo': tipo,
+        'seccion': seccion,
+        'volver_url': reverse(url_listado),
+        'relacionados': relacionados,
+    })
+
+
+def _texto_relacionados(**conteos):
+    """Ej: viajes=3, pagos=1 -> '3 viajes y 1 pagos' (solo los que tienen registros)."""
+    return " y ".join(f"{n} {nombre}" for nombre, n in conteos.items() if n)
+
+
+@login_required(login_url='/accounts/login/')
+def eliminar_vehiculo(request, pk):
+    vehiculo = get_object_or_404(Vehiculo, pk=pk)
+    relacionados = _texto_relacionados(
+        viajes=vehiculo.viaje_set.count(),
+        pagos=Pago.objects.filter(id_viaje__id_vehiculo=vehiculo).count(),
+        mantenciones=vehiculo.mantencion_set.count(),
+    )
+    return _confirmar_eliminacion(request, vehiculo, "vehículo", "Vehículos",
+                                  'listar_vehiculos', "Vehículo eliminado.", relacionados)
+
+
+@login_required(login_url='/accounts/login/')
+def eliminar_viaje(request, pk):
+    viaje = get_object_or_404(Viaje, pk=pk)
+    relacionados = _texto_relacionados(pagos=viaje.pago_set.count())
+    return _confirmar_eliminacion(request, viaje, "viaje", "Viajes",
+                                  'listar_viajes', "Viaje eliminado.", relacionados)
+
+
+@login_required(login_url='/accounts/login/')
+def eliminar_pago(request, pk):
+    pago = get_object_or_404(Pago, pk=pk)
+    return _confirmar_eliminacion(request, pago, "pago", "Pagos",
+                                  'listar_pagos', "Pago eliminado.")
+
+
+@login_required(login_url='/accounts/login/')
+def eliminar_mantencion(request, pk):
+    mantencion = get_object_or_404(Mantencion, pk=pk)
+    return _confirmar_eliminacion(request, mantencion, "mantención", "Mantenciones",
+                                  'listar_mantenciones', "Mantención eliminada.")
