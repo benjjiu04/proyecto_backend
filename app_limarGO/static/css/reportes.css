@@ -68,20 +68,3 @@
   margin-top: 13px;
 
 }
-
-.rp-grid{
-
-  position: relative;
-  justify-content: center;
-  justify-self: center;
-  align-items: center;
-  align-self: center;
-  display: grid;
-
-}
-
-.rp-grid .grid-child{
-  display: grid;
-  grid-template-columns: repeat(3, .4fr);
-
-}
