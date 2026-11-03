@@ -44,7 +44,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'proyecto_integrado_backend.urls'
 
 NAME = get_key(".env", "NAME")
-HOST = get_key(".env", "HOST")
+DB_HOST = get_key(".env", "DB_HOST")
 USER = get_key(".env", "USER")
 PASSWORD = get_key(".env", "PASSWORD")
 DB_PORT = get_key(".env", "DB_PORT")
@@ -76,7 +76,7 @@ DATABASES = {
         'NAME': NAME,
         'USER': USER,
         'PASSWORD': PASSWORD,
-        'HOST': HOST,
+        'HOST': DB_HOST,
         'PORT': DB_PORT,
     }
 }
