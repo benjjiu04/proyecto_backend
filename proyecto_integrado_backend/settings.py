@@ -75,10 +75,8 @@ WSGI_APPLICATION = 'proyecto_integrado_backend.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 DATABASES = {
     'default': dj_database_url.config(
-        # Lee la variable DATABASE_URL (ya sea del .env local o del panel de Render)
-        default=os.environ.get('DATABASE_URL'),
         conn_max_age=600,
-        ssl_require=True, # Recomendado para bases de datos en la nube como Render
+        ssl_require=True,
     )
 }
 
