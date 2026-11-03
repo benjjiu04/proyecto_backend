@@ -1,6 +1,9 @@
 from pathlib import Path
-from dotenv import get_key
+import os
+import dj_database_url
+from dotenv import get_key, load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -70,16 +73,13 @@ WSGI_APPLICATION = 'proyecto_integrado_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': NAME,
-        'USER': USER,
-        'PASSWORD': PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
-    }
+    'default': dj_database_url.config(
+        # Lee la variable DATABASE_URL (ya sea del .env local o del panel de Render)
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True, # Recomendado para bases de datos en la nube como Render
+    )
 }
 
 CSRF_TRUSTED_ORIGINS = [
