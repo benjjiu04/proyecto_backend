@@ -21,6 +21,8 @@
         <a href="{% url 'listar_pagos' %}" class="nav-tab {% if 'pago' in request.resolver_match.url_name %}active{% endif %}"> Pagos </a>
         <a href="{% url 'listar_mantenciones' %}" class="nav-tab {% if 'mantencion' in request.resolver_match.url_name %}active{% endif %}"> Mantenciones </a>
         <a href="{% url 'reportes' %}" class="nav-tab {% if request.resolver_match.url_name == 'reportes' %}active{% endif %}"> Reportes </a>
+        <a href="{% url 'listar_clientes' %}" class="nav-tab {% if 'cliente' in request.resolver_match.url_name %}active{% endif %}"> Clientes </a>
+        <a href="{% url 'listar_conductores' %}" class="nav-tab {% if 'conductor' in request.resolver_match.url_name %}active{% endif %}"> Conductores </a>
 
         {% if user.is_authenticated %}
         <div class="nav-user">
