@@ -32,20 +32,19 @@
             <td><a href="#">{{cliente.id_cliente}}</a></td>
             <td> {{ cliente.nombre }} </td>
             <td> {{ cliente.telefono }} </td>
-            <td> {{ cliente.direccion}} </td>
-            <td> {{cliente.frecuencia}} </td>
-
-        </tr>
-        {% empty %}
-        <tr>
-            <td class="mensaje-no-registro"  colspan="7">No hay clientes registrados.</td>
+           <td>{{ cliente.direccion }}</td>
+            <td>{{ cliente.frecuencia }}</td>
             
+            <!-- COLOQUÉ LAS ACCIONES DENTRO DE LA FILA DEL CLIENTE -->
+            <td>
+                <a href="{% url 'editar_cliente' cliente.id_cliente %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'eliminar_cliente' cliente.id_cliente %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
         </tr>
-        <td>
-    <a href="{% url 'editar_cliente' cliente.id_cliente %}" class="btn btn-warning btn-sm">Editar</a>
-    <a href="{% url 'eliminar_cliente' cliente.id_cliente %}" class="btn btn-danger btn-sm">Eliminar</a>
-</td>
-        {% endfor %}
-    </tbody>
+    {% empty %}
+        <tr>
+            <td class="mensaje-no-registro" colspan="7">No hay clientes registrados.</td>
+        </tr>
+    {% endfor %}
 </table>
 {% endblock %}

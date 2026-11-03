@@ -218,7 +218,7 @@ def crear_mantencion(request):
 # ==========================================
 
 @login_required(login_url='/accounts/login/')
-def editar_cliente(request, pk):
+def editar_cliente(request, pk) -> HttpResponseRedirect | HttpResponse:
     
     cliente = get_object_or_404(Cliente, pk=pk)
     

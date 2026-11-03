@@ -1,6 +1,6 @@
 @font-face {
 		font-family: "Roboto";
-		src: url("../fonts/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
+		src: url("../font/Roboto-VariableFont_wdth\,wght.ttf");
 	}
 
 	/* ---------- Variables del tema (única fuente de colores) ---------- */
@@ -20,6 +20,8 @@
 		--verde: #16a34a;
 		--ambar: #f59e0b;
 		--rojo: #dc2626;
+
+		--tamaños_textos: 20px;
 	}
 
 	*, *::before, *::after { box-sizing: border-box; }

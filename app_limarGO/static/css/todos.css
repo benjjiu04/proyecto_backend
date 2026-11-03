@@ -157,7 +157,7 @@ td { border-bottom: 1px solid #e0e7ff; }
 tbody tr:nth-child(even) { background: #f5f7ff; }
 tbody tr:hover { background: #e0e7ff; }
 tbody tr:last-child td { border-bottom: none; }
-.mensaje-no-registro { padding: 36px 18px; font-size: 1.1rem; font-weight: 600; color: #64748b; background: #fff; }
+
 
 /* ---------- Panel de inicio ---------- */
 .content-container h2 { margin: 0 0 6px; text-align: center; font-size: 2rem; color: var(--azul-osc); }

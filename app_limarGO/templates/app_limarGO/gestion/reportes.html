@@ -9,20 +9,21 @@
     <span class="sub-tab active">Reportes</span>
 </div>
 
-<h2>Reportes y estadísticas</h2>
+<h2 class="titulo_reportes">Reportes y estadísticas</h2>
 
 <div class="rp-kpis">
-    <div class="rp-kpi"><span>Viajes (sin cancelados)</span><strong>{{ resumen.total_viajes }}</strong></div>
-    <div class="rp-kpi"><span>Ingreso estimado</span><strong>${{ resumen.ingreso_estimado|default:0|floatformat:0 }}</strong></div>
-    <div class="rp-kpi"><span>Costo promedio por viaje</span><strong>${{ resumen.costo_promedio|default:0|floatformat:0 }}</strong></div>
-    <div class="rp-kpi"><span>Kilómetros recorridos</span><strong>{{ resumen.km_total|floatformat:0 }} km</strong></div>
-    <div class="rp-kpi verde"><span>Cobrado (pagos Pagado)</span><strong>${{ pagado|floatformat:0 }}</strong></div>
-    <div class="rp-kpi ambar"><span>Por cobrar (pagos Pendiente)</span><strong>${{ pendiente|floatformat:0 }}</strong></div>
+    <div class="rp-kpi"><span>Viajes (sin cancelar)</span> <span class="valor"><strong>{{ resumen.total_viajes }}</strong></span> </div>
+    <div class="rp-kpi"><span>Ingreso estimado</span> <span class="valor"><strong>${{ resumen.ingreso_estimado|default:0|floatformat:0 }}</span></strong> </div>
+    <div class="rp-kpi"><span>Costo promedio por viaje</span> <span class="valor"><strong>${{ resumen.costo_promedio|default:0|floatformat:0 }}</strong></span> </div>
+    <div class="rp-kpi"><span>Kilómetros recorridos</span> <span class="valor"><strong>{{ resumen.km_total|floatformat:"g"}} km</strong></span>  </div>
+    <div class="rp-kpi verde"><span>Cobrado (pagos Pagado)</span> <span class="valor"><strong>${{ pagado|floatformat:0 }}</strong></span> </div>
+    <div class="rp-kpi ambar"><span>Por cobrar (pagos Pendiente)</span> <span class="valor"><strong>${{ pendiente|floatformat:0 }}</strong></span> </div>
 </div>
 
 <div class="rp-grid">
 
     <section class="rp-card">
+        <table>
         <h3>Viajes por estado</h3>
         {% for f in por_estado %}
         <div class="rp-row">
