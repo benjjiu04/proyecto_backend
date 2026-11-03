@@ -36,7 +36,8 @@
 	}
 	
 	body {
-		font-family: Arial, sans-serif; /*al canal verde se le resta 14, al canal azul se le suma 20 y el canal alfa se queda en 70% opacidad */
+		
+		font-family: Roboto; /*al canal verde se le resta 14, al canal azul se le suma 20 y el canal alfa se queda en 70% opacidad */
 		background-color: rgb(from var(--main-bg-color) r calc(g - 14) calc(b + 20) / calc(alpha * 0.70));
 		color: var(--texto);
 		line-height: 1.5;
@@ -178,62 +179,60 @@
 		margin-bottom: 20px;
 	}
 
-	.search-box {
+.search-box {
+    display: flex; 
+    align-items: center; gap: 8px;
+    flex: 1 1 320px; 
+}
 
-		display: flex;
-		align-items: center;
-		gap: 6px;
-	}
+.search-box input {
 
-	.search-box input {
+  flex: 1;
+	outline: none;
+  max-width: 440px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+	transition: box-shadow .3s ease-in-out;
+}
 
-		font-family: Arial;
-		padding: 7px 10px;
-		width: 320px;
-		max-width: 100%;
+.search-box input:focus {
 
-		border-top: 2px solid rgb(146, 146, 146);
-		border-radius: 4px;
-		font-size: 14px;
+  outline: none;
+  border-color: var(--indigo);
+  box-shadow: 0px 0px 13px rgba(75, 129, 200, 0.482);
+}
 
-		box-shadow: 2px 2px 0 1px black;
-		transition: box-shadow .3s ease-in-out;
-
-	}
-
-	.search-box input:hover{
-		box-shadow: 4px 4px 0 1px black;
-	}
-
-	.search-box input:active{
+.search-box input:active{
 		outline: none;
-	}
+}
 
-	.search-box input:focus{
+.search-box input:focus{
 		outline: none;
-	}
-
+}
 
 	/* ---------- Botones (base + variantes) ---------- */
-	.btn {
-		padding: 8px 16px;
-		border: none;
-		border-radius: 4px;
-		font-weight: bold;
-		cursor: pointer;
-		text-decoration: none;
-		font-size: 13px;
-		display: inline-block;
+.btn {
 
+    display: inline-block;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
 		box-shadow: 2px 2px 0px 1px black;
-		transition: box-shadow .3s ease-in-out, filter .3s ease-in-out;
-		
-	}
+    transition: box-shadow .2s ease-in-out;
+}
 
 	.btn:hover{
 
 		box-shadow: 4px 4px 0 1px black;
-		filter: brightness(.92);
 	}
 
 	.btn-go {
