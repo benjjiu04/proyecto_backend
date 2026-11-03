@@ -13,7 +13,11 @@ SECRET_KEY = 'django-insecure--6@xd^8+=yc1e19-o-8_#kg5^^5rhbue2scc&#e-$zohy-ra*+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  "proyecto-backend-deployment.onrender.com",
+  "localhost",
+  '127.0.0.1',
+]
 
 # Application definition
 
@@ -43,7 +47,7 @@ NAME = get_key(".env", "NAME")
 HOST = get_key(".env", "HOST")
 USER = get_key(".env", "USER")
 PASSWORD = get_key(".env", "PASSWORD")
-PORT = get_key(".env", "PORT")
+DB_PORT = get_key(".env", "DB_PORT")
 
 TEMPLATES = [
     {
@@ -73,7 +77,7 @@ DATABASES = {
         'USER': USER,
         'PASSWORD': PASSWORD,
         'HOST': HOST,
-        'PORT': PORT,
+        'PORT': DB_PORT,
     }
 }
 
