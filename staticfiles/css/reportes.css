@@ -1,0 +1,70 @@
+.titulo_reportes{
+
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-decoration-color: black;
+  text-decoration-thickness: 5px;
+}
+
+.rp-kpis{
+
+  font-family: "Calibri";
+  font-size: calc(var(--tamaños_textos) + 4px);
+  overflow-wrap: break-word;
+  white-space: nowrap;
+
+  margin-top: 34px;
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(3, 0.5fr); /*controla cuantos items pueden estar en cada linea*/
+  
+  text-align: center;
+
+  gap: 40px;
+}
+
+
+.rp-kpis .valor{
+
+  font-size: calc(var(--tamaños_textos) + 12px);
+  display: block;
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  justify-self: center;
+  margin-top: 6px;
+  
+}
+
+.rp-kpis .rp-kpi{
+
+  position: relative;
+  font-weight: bold;
+  z-index: 0;
+  color: white;
+  text-shadow: 2px 2px 0px black;
+}
+
+.rp-kpis .rp-kpi::before{
+
+  position: absolute;
+  display: flex;
+  content: "";
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+
+  width: 100%;
+  height: 100%;
+  
+  background-image: linear-gradient(20deg, rgb(76, 111, 251), rgb(120, 50, 249) 70%);
+  border-radius: 15px;
+  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.349);
+
+}
+
+.rp-kpis .rp-kpi .valor{
+
+  margin-top: 13px;
+
+}
